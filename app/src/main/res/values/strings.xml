@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MadLevel3Task2</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+  
+    <string name="url">url</string>
+    <string name="add">ADD PORTAL</string>
+    <string name="title">title</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
