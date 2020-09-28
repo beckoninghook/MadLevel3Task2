@@ -8,7 +8,7 @@ import com.example.madlevel3task2.databinding.ItemPortalBinding
 import kotlinx.android.synthetic.main.fragment_portals.view.*
 import kotlinx.android.synthetic.main.item_portal.view.*
 
-class PortalsAdapter(private val reminders: List<Portal>) : RecyclerView.Adapter<PortalsAdapter.ViewHolder>(){
+class PortalsAdapter(private val portals: List<Portal>    ,  private val onClickListener: (View, Portal) -> Unit) : RecyclerView.Adapter<PortalsAdapter.ViewHolder>(){
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,14 +34,19 @@ class PortalsAdapter(private val reminders: List<Portal>) : RecyclerView.Adapter
      * Returns the size of the list
      */
     override fun getItemCount(): Int {
-        return reminders.size
+        return portals.size
     }
+
 
     /**
      * Called by RecyclerView to display the data at the specified position.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(reminders[position])
+        val portal = portals[position]
+        holder.itemView.setOnClickListener { view ->
+            onClickListener.invoke(view, portal)
+        }
+        holder.databind(portals[position])
     }
 
 

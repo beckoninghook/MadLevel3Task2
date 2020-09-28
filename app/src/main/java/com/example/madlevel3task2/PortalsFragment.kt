@@ -1,12 +1,13 @@
 package com.example.madlevel3task2
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_portals.*
 class PortalsFragment : Fragment()  {
 
     private val portals = arrayListOf<Portal>()
-    private val portalAdapter = PortalsAdapter(portals)
+    private val portalAdapter = PortalsAdapter(portals , onClickListener = this::openBrowser)
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +38,19 @@ class PortalsFragment : Fragment()  {
 
     }
 
+    fun openBrowser(view : View , portal : Portal){
+        println(portal)
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(context, Uri.parse(portal.url))
+    }
+
     fun initViews(){
         rvPortals.layoutManager = LinearLayoutManager(context , RecyclerView.VERTICAL , false)
         rvPortals.adapter = portalAdapter
         rvPortals.layoutManager = GridLayoutManager(context, 2)
-    }
+
+        }
 
     private fun observeAddPortalResult() {
         setFragmentResultListener(REQ_PORTAL_KEY) { key, bundle ->
